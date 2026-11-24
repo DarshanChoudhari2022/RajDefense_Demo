@@ -15,7 +15,7 @@
     <link
       rel="preload"
       as="image"
-      href="assets/hero.webp"
+      href="assets/sahyadri-flight.webp"
       fetchpriority="high"
     />
     <link
@@ -26,6 +26,8 @@
       crossorigin
     />
     <link rel="stylesheet" href="style.css" />
+    <script defer src="assets/gsap.min.js"></script>
+    <script defer src="assets/ScrollTrigger.min.js"></script>
     <script defer src="motion.js"></script>
   </head>
   <body>
@@ -42,8 +44,10 @@
           height="225"
       /></a>
       <nav id="site-nav" aria-label="Main navigation">
-        <a href="#systems">Systems</a><a href="#hydrogen">Hydrogen</a
-        ><a href="#maritime">Maritime</a><a href="#company">Company</a>
+        <a href="#products">Products</a>
+        <a href="#services">Services</a>
+        <a href="#hydrogen">Technology</a>
+        <a href="#company">Company</a>
       </nav>
       <a class="pill mast-cta" href="#contact"
         ><span class="wide-cta">Request a briefing</span
@@ -62,7 +66,7 @@
       <section id="home" class="hero" aria-labelledby="hero-heading">
         <img
           class="hero-photo"
-          src="assets/hero.webp"
+          src="assets/sahyadri-flight.webp"
           width="1672"
           height="941"
           fetchpriority="high"
@@ -75,7 +79,7 @@
           loop
           preload="none"
           aria-hidden="true"
-          data-src="assets/first-light.mp4"
+          data-src="assets/sahyadri-flight.mp4"
         ></video>
         <div class="hero-scrim"></div>
         <div class="hero-content">
@@ -91,14 +95,111 @@
         </div>
       </section>
       <section
+        class="family catalogue"
+        id="products"
+        aria-labelledby="products-title"
+      >
+        <div id="programmes" class="catalogue-heading">
+          <h2 id="products-title">Products &amp; programmes</h2>
+        </div>
+        <div class="family-rows">
+          <details>
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/sahyadri-flight.webp"
+                alt="An aircraft flying over green hills"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>Hydrogen ISR drone</strong
+                ><span class="card-caption"
+                  >Observation from the air</span
+                ></span
+              >
+            </summary>
+            <p>
+              A hydrogen-powered observation platform for extended day and night
+              coverage.
+            </p>
+          </details>
+          <details>
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/heavy-lift.webp"
+                alt="Heavy-lift concept over a mountain range"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>RAJAS Heavy-Lift <small>In development</small></strong
+                ><span class="card-caption"
+                  >Cargo and medical supplies</span
+                ></span
+              >
+            </summary>
+            <p>
+              A development programme for cargo and medical supply transport.
+              The 100 kg payload and five-hour endurance figures are design
+              targets.
+            </p>
+          </details>
+          <details id="maritime-card">
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/konkan-survey.webp"
+                alt="Survey vessel off a forested coast"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>Maritime &amp; underwater systems</strong
+                ><span class="card-caption"
+                  >Coastal and seabed survey</span
+                ></span
+              >
+            </summary>
+            <p>
+              Raj’s maritime portfolio covers deck-launched aircraft and
+              underwater vehicles for seabed survey and infrastructure
+              inspection.
+            </p>
+          </details>
+          <details>
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/workshop.webp"
+                alt="Engineering workshop concept"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>Other defence programmes</strong
+                ><span class="card-caption"
+                  >Research and development</span
+                ></span
+              >
+            </summary>
+            <p>
+              The company portfolio also includes a hydrogen loitering munition
+              programme and an interceptor drone programme under development.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section
         id="systems"
         class="cinema hangar"
         aria-labelledby="systems-title"
       >
         <img
           class="scene-still"
-          src="assets/hangar-reveal.webp"
-          alt="Illustrative front three-quarter view of the RJS-H1 inside a green hangar."
+          src="assets/pune-hangar.webp"
+          alt="Illustrative front three-quarter view of the RJS-H1 with engineers in a Pune workshop."
           width="1600"
           height="900"
           loading="lazy"
@@ -110,10 +211,10 @@
           loop
           preload="none"
           aria-hidden="true"
-          data-src="assets/hangar-reveal.mp4"
+          data-src="assets/pune-hangar.mp4"
         ></video>
         <div class="scene-copy">
-          <p class="scene-label">Unmanned aircraft</p>
+          <p class="scene-label">Products / Hydrogen aircraft</p>
           <h2 id="systems-title">RAJAS<br />RJS-H1</h2>
           <p class="scene-deck">
             A hydrogen-powered aircraft designed in Pune for vertical take-off
@@ -204,97 +305,87 @@
             <dd>Pune, India</dd>
           </div>
         </dl>
-        <div class="family" id="programmes">
-          <h3>Platform family</h3>
-          <div class="family-rows">
-            <details>
-              <summary>
-                <img
-                  loading="lazy"
-                  src="assets/hero.webp"
-                  alt="An aircraft flying over green hills"
-                  width="640"
-                  height="400"
-                />
-                <span class="card-face"
-                  ><strong>Hydrogen ISR drone</strong
-                  ><span class="card-caption"
-                    >Observation from the air</span
-                  ></span
-                >
-              </summary>
-              <p>
-                A hydrogen-powered observation platform for extended day and
-                night coverage.
-              </p>
-            </details>
-            <details>
-              <summary>
-                <img
-                  loading="lazy"
-                  src="assets/heavy-lift.webp"
-                  alt="Heavy-lift concept over a mountain range"
-                  width="640"
-                  height="400"
-                />
-                <span class="card-face"
-                  ><strong
-                    >RAJAS Heavy-Lift <small>In development</small></strong
-                  ><span class="card-caption"
-                    >Cargo and medical supplies</span
-                  ></span
-                >
-              </summary>
-              <p>
-                A development programme for cargo and medical supply transport.
-                The 100 kg payload and five-hour endurance figures are design
-                targets.
-              </p>
-            </details>
-            <details id="maritime-card">
-              <summary>
-                <img
-                  loading="lazy"
-                  src="assets/coastal-survey.webp"
-                  alt="Survey vessel off a forested coast"
-                  width="640"
-                  height="400"
-                />
-                <span class="card-face"
-                  ><strong>Maritime &amp; underwater systems</strong
-                  ><span class="card-caption"
-                    >Coastal and seabed survey</span
-                  ></span
-                >
-              </summary>
-              <p>
-                Raj’s maritime portfolio covers deck-launched aircraft and
-                underwater vehicles for seabed survey and infrastructure
-                inspection.
-              </p>
-            </details>
-            <details>
-              <summary>
-                <img
-                  loading="lazy"
-                  src="assets/workshop.webp"
-                  alt="Engineering workshop concept"
-                  width="640"
-                  height="400"
-                />
-                <span class="card-face"
-                  ><strong>Other defence programmes</strong
-                  ><span class="card-caption"
-                    >Research and development</span
-                  ></span
-                >
-              </summary>
-              <p>
-                The company portfolio also includes a hydrogen loitering
-                munition programme and an interceptor drone programme under
-                development.
-              </p>
-            </details>
+      </section>
+      <section
+        id="maritime"
+        class="cinema coast"
+        aria-labelledby="maritime-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/konkan-survey.webp"
+          alt="Illustrative coastal survey scene with a vessel tracing a wake along the Konkan coast."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/konkan-survey.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Products / Maritime systems</p>
+          <h2 id="maritime-title">Above &amp;<br />below water.</h2>
+          <p class="scene-deck">
+            Deck-launched aircraft and underwater survey vehicles extend Raj’s
+            engineering work to the coast and seabed.
+          </p>
+          <a class="scene-link" href="#contact"
+            >Discuss maritime systems <i class="icon down"></i
+          ></a>
+        </div>
+      </section>
+      <section
+        class="services section"
+        id="services"
+        aria-labelledby="services-title"
+      >
+        <div class="section-cap">
+          <span>Services</span><span>For evaluation teams</span>
+        </div>
+        <div class="services-grid">
+          <div>
+            <h2 id="services-title">
+              Engineering &amp;<br />evaluation support
+            </h2>
+            <p>
+              Talk through your aircraft requirements with Raj’s engineers or
+              arrange to see the design and assembly work in Pune.
+            </p>
+          </div>
+          <div class="service-list">
+            <a href="#contact" data-interest="Aircraft briefing"
+              ><span
+                ><strong>Aircraft briefing</strong
+                ><small
+                  >Discuss platform capabilities and your evaluation
+                  requirements.</small
+                ></span
+              ><i class="icon northeast"></i
+            ></a>
+            <a href="#contact" data-interest="Engineering visit"
+              ><span
+                ><strong>Visit the Pune facility</strong
+                ><small
+                  >Meet the team responsible for aircraft design and
+                  assembly.</small
+                ></span
+              ><i class="icon northeast"></i
+            ></a>
+            <a href="#contact" data-interest="Quality documentation"
+              ><span
+                ><strong>Quality documentation</strong
+                ><small
+                  >Request process records, certifications and approvals for
+                  review.</small
+                ></span
+              ><i class="icon northeast"></i
+            ></a>
           </div>
         </div>
       </section>
@@ -321,7 +412,7 @@
           data-src="assets/lift-detail.mp4"
         ></video>
         <div class="scene-copy">
-          <p class="scene-label">Propulsion</p>
+          <p class="scene-label">Technology / Propulsion</p>
           <h2 id="hydrogen-title">Electric lift.<br />Hydrogen cruise.</h2>
           <p class="scene-deck">
             Battery power lifts the RJS-H1 vertically. Once the wing carries its
@@ -379,40 +470,6 @@
           </div>
         </div>
       </section>
-      <section
-        id="maritime"
-        class="cinema coast"
-        aria-labelledby="maritime-title"
-      >
-        <img
-          class="scene-still"
-          src="assets/coastal-survey.webp"
-          alt="Illustrative coastal survey scene with a vessel tracing a wake across deep green water."
-          width="1600"
-          height="900"
-          loading="lazy"
-        />
-        <video
-          class="scene-video"
-          muted
-          playsinline
-          loop
-          preload="none"
-          aria-hidden="true"
-          data-src="assets/coastal-survey.mp4"
-        ></video>
-        <div class="scene-copy">
-          <p class="scene-label">Maritime systems</p>
-          <h2 id="maritime-title">Above &amp;<br />below water.</h2>
-          <p class="scene-deck">
-            Deck-launched aircraft and underwater survey vehicles extend Raj’s
-            engineering work to the coast and seabed.
-          </p>
-          <a class="scene-link" href="#contact"
-            >Discuss maritime systems <i class="icon down"></i
-          ></a>
-        </div>
-      </section>
       <section id="company" class="company section">
         <div class="section-cap">
           <span>Company</span><span>Pune, Maharashtra</span>
@@ -420,30 +477,30 @@
         <div class="company-grid">
           <figure>
             <img
-              src="assets/workshop.webp"
-              alt="Illustrative scene of an engineer examining an aircraft in a workshop"
+              src="chakan.webp"
+              alt="Aerial view of the Raj industrial facility at Chakan, Maharashtra"
               width="1400"
               height="933"
               loading="lazy"
             />
             <figcaption>
-              Engineering workshop <span>Concept imagery</span>
+              Chakan facility <span>Maharashtra, India</span>
             </figcaption>
           </figure>
           <div>
             <p class="kicker">Our engineering roots</p>
-            <h2>Engineering<br />you can <em>visit.</em></h2>
+            <h2>Our roots<br />in <em>Pune.</em></h2>
             <p>
               Raj Defence and Aerospace grew out of Raj Process Equipments and
               Systems in Pune. The group’s experience in industrial gas plants
               now informs its work on hydrogen-powered aircraft.
             </p>
             <p>
-              Design and assembly take place in Pune. Evaluation teams can
-              arrange a visit to meet the people behind the aircraft.
+              Today, the Pune team brings that industrial experience to the
+              design and assembly of unmanned systems.
             </p>
-            <a class="text-link" href="#contact"
-              >Arrange a visit <i class="icon northeast"></i
+            <a class="text-link" href="#services"
+              >Evaluation services <i class="icon northeast"></i
             ></a>
             <details class="quality">
               <summary>Quality &amp; compliance</summary>
@@ -487,6 +544,8 @@
           alt="Raj Defence & Aerospace"
           width="800"
           height="225" /></a
+      ><a href="assets/raj-india-showcase.mp4"
+        >Company film <i class="icon play"></i></a
       ><a href="Raj-brand-kit.zip" download
         >Brand kit <i class="icon download"></i></a
       ><a href="#home">Back to top <i class="icon up"></i></a>
@@ -506,7 +565,7 @@
         playsinline
         preload="none"
         aria-label="Silent concept film of the aircraft, propulsion and maritime programmes"
-        poster="assets/hero.webp"
+        poster="assets/sahyadri-flight.webp"
         data-src="assets/raj-overview.mp4"
       ></video>
     </dialog>
@@ -557,7 +616,9 @@
             >Area of interest<select name="interest">
               <option>RAJAS RJS-H1</option>
               <option>Hydrogen technology</option>
+              <option>Aircraft briefing</option>
               <option>Engineering visit</option>
+              <option>Quality documentation</option>
               <option>Company information</option>
             </select></label
           >

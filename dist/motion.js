@@ -288,11 +288,13 @@ watchButton?.addEventListener("click", () => {
   film.currentTime = 0;
   film.play().catch(() => {});
 });
-for (const trigger of [$(".mast-cta"), $("#brief"), $(".company .text-link")]) {
+for (const trigger of document.querySelectorAll(
+  ".mast-cta, #brief, [data-interest]",
+)) {
   trigger.addEventListener("click", (e) => {
     e.preventDefault();
-    if (trigger.closest(".company")) {
-      $("#enquiry").elements.interest.value = "Engineering visit";
+    if (trigger.dataset.interest) {
+      $("#enquiry").elements.interest.value = trigger.dataset.interest;
       $("#draft").hidden = true;
     }
     openDialog(briefDialog);
@@ -339,21 +341,26 @@ $("#copy-draft").addEventListener("click", async () => {
     $("#copy-status").textContent = "Use Open email app to continue.";
   }
 });
-const reveal = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries)
-      if (e.isIntersecting) {
-        e.target.classList.remove("pending");
-        reveal.unobserve(e.target);
-      }
-  },
-  { threshold: 0.06 },
-);
-for (const el of document.querySelectorAll(
-  ".family,.tech-chapters article,.company-grid>div,.contact-grid",
-)) {
-  el.classList.add("reveal", "pending");
-  reveal.observe(el);
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+    for (const section of document.querySelectorAll(
+      ".catalogue, .cinema, .services, .technology, .company",
+    )) {
+      const elements = section.querySelectorAll(
+        ".family-rows details, .scene-copy, .service-list a, .tech-chapters article, .company-grid figure",
+      );
+      gsap.from(elements, {
+        y: 22,
+        opacity: 0.55,
+        duration: 0.65,
+        stagger: 0.08,
+        ease: "power2.out",
+        clearProps: "transform,opacity",
+        scrollTrigger: { trigger: section, start: "top 87%", once: true },
+      });
+    }
+  });
 }
 const sectionNav = new IntersectionObserver(
   (entries) => {
@@ -363,8 +370,12 @@ const sectionNav = new IntersectionObserver(
           if (
             a.hash ===
             "#" +
-              ({ aircraft: "systems", propulsion: "hydrogen" }[e.target.id] ||
-                e.target.id)
+              ({
+                aircraft: "products",
+                systems: "products",
+                maritime: "products",
+                propulsion: "hydrogen",
+              }[e.target.id] || e.target.id)
           )
             a.setAttribute("aria-current", "location");
           else a.removeAttribute("aria-current");
