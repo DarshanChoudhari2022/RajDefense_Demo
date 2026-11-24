@@ -280,7 +280,8 @@ for (const dialog of document.querySelectorAll("dialog")) {
     updateMotion();
   });
 }
-$("#watch").addEventListener("click", () => {
+const watchButton = $("#watch");
+watchButton?.addEventListener("click", () => {
   openDialog(filmDialog);
   if (!film.getAttribute("src")) film.src = film.dataset.src;
   film.currentTime = 0;
