@@ -1196,6 +1196,9 @@ textarea {
   display: flex;
   align-items: center;
 }
+.hero-content > .hero-link {
+  margin-top: clamp(22px, 3vw, 34px);
+}
 .hero-links {
   gap: 27px;
   margin-top: clamp(23px, 2.5vw, 37px);
