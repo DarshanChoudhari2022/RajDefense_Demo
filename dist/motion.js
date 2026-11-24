@@ -91,6 +91,7 @@ const views = [
 const still = $("#aircraft-still"),
   host = $("#canvas-host"),
   modelButton = $("#view-3d"),
+  explodeButton = $("#explode-toggle"),
   label = $("#view-label"),
   hint = $("#model-hint");
 let viewIndex = 0,
@@ -117,6 +118,12 @@ function restoreStill() {
   host.hidden = true;
   still.hidden = false;
   outlineControl.hidden = true;
+  explodeControl.hidden = true;
+  explodedParts.hidden = true;
+  explodeButton.setAttribute("aria-pressed", "false");
+  explodeButton.querySelector("span").textContent = "Exploded view";
+  explodeControl.querySelector("input").value = "0";
+  viewer?.setExplode(0);
   modelButton.setAttribute("aria-pressed", "false");
   modelButton.querySelector("span").textContent = "Explore in 3D";
   displayView();
@@ -132,12 +139,62 @@ outlineControl.querySelector("input").addEventListener("input", (e) => {
   outlineControl.querySelector("output").value = value + "%";
   viewer?.setOutline(value / 100);
 });
-modelButton.addEventListener("click", async () => {
-  if (mode3D) {
-    restoreStill();
-    hint.textContent = "";
-    return;
+const explodeControl = document.createElement("label");
+explodeControl.className = "explode-control";
+explodeControl.hidden = true;
+explodeControl.innerHTML =
+  '<span>Assembled</span><input type="range" min="0" max="100" value="0" aria-label="Explode aircraft components"><span>Exploded</span>';
+hint.before(explodeControl);
+const explodedParts = document.createElement("p");
+explodedParts.className = "exploded-parts";
+explodedParts.hidden = true;
+explodedParts.innerHTML =
+  "<strong>Aircraft systems</strong> &nbsp; Wing · V-tail · 4 lift rotors · rear pusher · hydrogen cylinder · PEM fuel cell · buffer battery";
+hint.before(explodedParts);
+let explodeFrame = 0;
+function animateExplode(target) {
+  cancelAnimationFrame(explodeFrame);
+  const control = explodeControl.querySelector("input");
+  const from = viewer?.explodeAmount ?? 0;
+  const start = performance.now();
+  function frame(now) {
+    const progress = Math.min(1, (now - start) / 720);
+    const eased = progress * progress * (3 - 2 * progress);
+    const value = from + (target - from) * eased;
+    viewer?.setExplode(value);
+    control.value = String(Math.round(value * 100));
+    if (progress < 1) explodeFrame = requestAnimationFrame(frame);
   }
+  explodeFrame = requestAnimationFrame(frame);
+}
+explodeControl.querySelector("input").addEventListener("input", (event) => {
+  const amount = Number(event.target.value) / 100;
+  viewer?.setExplode(amount);
+  explodeButton.setAttribute("aria-pressed", String(amount > 0));
+  explodeButton.querySelector("span").textContent =
+    amount > 0 ? "Assemble aircraft" : "Exploded view";
+  explodedParts.hidden = amount < 0.05;
+});
+explodeButton.addEventListener("click", async () => {
+  if (!mode3D) await enableViewer();
+  if (!mode3D) return;
+  const expand = viewer.explodeAmount < 0.5;
+  explodeButton.setAttribute("aria-pressed", String(expand));
+  explodeButton.querySelector("span").textContent = expand
+    ? "Assemble aircraft"
+    : "Exploded view";
+  explodedParts.hidden = !expand;
+  animateExplode(expand ? 1 : 0);
+});
+let viewerLoading = null;
+async function enableViewer() {
+  if (mode3D) return;
+  if (viewerLoading) return viewerLoading;
+  viewerLoading = loadViewer();
+  await viewerLoading;
+  viewerLoading = null;
+}
+async function loadViewer() {
   modelButton.disabled = true;
   hint.textContent = "Loading exterior view…";
   try {
@@ -150,6 +207,7 @@ modelButton.addEventListener("click", async () => {
     mode3D = true;
     still.hidden = true;
     outlineControl.hidden = false;
+    explodeControl.hidden = false;
     modelButton.setAttribute("aria-pressed", "true");
     modelButton.querySelector("span").textContent = "Studio views";
     label.textContent = "Exterior concept";
@@ -162,6 +220,14 @@ modelButton.addEventListener("click", async () => {
   } finally {
     modelButton.disabled = false;
   }
+}
+modelButton.addEventListener("click", async () => {
+  if (mode3D) {
+    restoreStill();
+    hint.textContent = "";
+    return;
+  }
+  await enableViewer();
 });
 
 const filmDialog = $("#film-dialog"),

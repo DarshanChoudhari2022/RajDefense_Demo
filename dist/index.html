@@ -152,9 +152,18 @@
                   <i class="icon next"></i>
                 </button>
               </div>
-              <button class="mode-button" id="view-3d" aria-pressed="false">
-                <i class="icon cube"></i><span>Explore in 3D</span>
-              </button>
+              <div class="viewer-actions">
+                <button class="mode-button" id="view-3d" aria-pressed="false">
+                  <i class="icon cube"></i><span>Explore in 3D</span>
+                </button>
+                <button
+                  class="mode-button"
+                  id="explode-toggle"
+                  aria-pressed="false"
+                >
+                  <i class="icon explode"></i><span>Exploded view</span>
+                </button>
+              </div>
             </figcaption>
             <p id="model-hint" role="status"></p>
           </figure>

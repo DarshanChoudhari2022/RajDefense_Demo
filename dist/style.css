@@ -4,6 +4,41 @@
   font-weight: 100 900;
   font-display: swap;
 }
+.viewer-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.explode {
+  --glyph: url("assets/arrows-move.svg");
+}
+.explode-control {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.explode-control[hidden],
+.exploded-parts[hidden] {
+  display: none;
+}
+.explode-control input[type="range"] {
+  flex: 1;
+  min-width: 60px;
+  margin: 0;
+  accent-color: var(--pine);
+}
+.exploded-parts {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+}
+.exploded-parts strong {
+  color: var(--ink);
+}
 :root {
   --pine: #183b28;
   --ink: #14281b;
@@ -887,6 +922,14 @@ textarea {
   .hero-content {
     top: auto;
     bottom: 92px;
+  }
+  .viewer-actions {
+    gap: 5px;
+  }
+  .viewer-actions .mode-button {
+    gap: 6px;
+    font-size: 11px;
+    padding: 8px 9px;
   }
   h1 {
     font-size: clamp(43px, 10.6vw, 66px);

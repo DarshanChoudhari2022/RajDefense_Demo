@@ -3,6 +3,7 @@ import * as THREE from "./assets/three.module.min.js";
 // An exterior illustration in arbitrary display units, matched to the supplied studio views.
 function airframe() {
   const group = new THREE.Group();
+  const parts = [];
   const finish = new THREE.MeshStandardMaterial({
     color: 0x879486,
     metalness: 0.29,
@@ -43,7 +44,13 @@ function airframe() {
   const curve = new THREE.SplineCurve(
     outline.map(([r, h]) => new THREE.Vector2(r, h)),
   );
-  const body = shape(new THREE.LatheGeometry(curve.getPoints(72), 48), finish);
+  const fuselage = new THREE.Group();
+  group.add(fuselage);
+  const body = shape(
+    new THREE.LatheGeometry(curve.getPoints(72), 48),
+    finish,
+    fuselage,
+  );
   body.rotation.x = Math.PI / 2;
   body.scale.z = 0.83;
   // Closed, gently rounded external surfaces keep the silhouette legible at all orbit angles.
@@ -74,16 +81,30 @@ function airframe() {
     mat.side = THREE.DoubleSide;
     return shape(g, mat, parent);
   }
+  const wing = new THREE.Group();
+  group.add(wing);
+  const wingShape = [
+    [0, 0.12, 0.05, 0.58, 0.094],
+    [1.7, 0.12, 0.06, 0.52, 0.075],
+    [3.7, 0.16, -0.04, 0.36, 0.053],
+    [4.06, 0.18, -0.07, 0.3, 0.038],
+    [4.1, 0.18, -0.07, 0.26, 0.018],
+  ];
+  panel(wingShape, wing);
+  const oppositeWing = new THREE.Group();
+  group.add(oppositeWing);
+  oppositeWing.scale.x = -1;
+  panel(wingShape, oppositeWing);
+  parts.push({ object: wing, offset: new THREE.Vector3(0, 0.8, 0) });
+  parts.push({ object: oppositeWing, offset: new THREE.Vector3(0, 0.8, 0) });
+  parts.push({ object: fuselage, offset: new THREE.Vector3(0, -0.25, 0.55) });
   for (const side of [-1, 1]) {
-    panel([
-      [0, 0.12, 0.05, 0.58, 0.094],
-      [side * 1.7, 0.12, 0.06, 0.52, 0.075],
-      [side * 3.7, 0.16, -0.04, 0.36, 0.053],
-      [side * 4.06, 0.18, -0.07, 0.3, 0.038],
-      [side * 4.1, 0.18, -0.07, 0.26, 0.018],
-    ]);
     const tail = new THREE.Group();
     group.add(tail);
+    parts.push({
+      object: tail,
+      offset: new THREE.Vector3(side * 0.5, 0.65, -0.2),
+    });
     tail.position.set(0, 0.02, -1.75);
     tail.rotation.z = side * 0.82;
     panel(
@@ -94,23 +115,47 @@ function airframe() {
       ],
       tail,
     );
-    const boom = ellipsoid(side * 1.32, 0.09, 0.04, 0.072, 0.076, 1.48, detail);
+    const boomAssembly = new THREE.Group();
+    group.add(boomAssembly);
+    parts.push({
+      object: boomAssembly,
+      offset: new THREE.Vector3(side * 0.65, 0.15, 0),
+    });
+    const boom = ellipsoid(
+      side * 1.32,
+      0.09,
+      0.04,
+      0.072,
+      0.076,
+      1.48,
+      detail,
+      boomAssembly,
+    );
     for (const z of [-1.17, 1.24]) {
+      const rotorAssembly = new THREE.Group();
+      boomAssembly.add(rotorAssembly);
+      rotorAssembly.position.set(boom.position.x, 0, z);
       const hub = shape(
         new THREE.CylinderGeometry(0.101, 0.11, 0.14, 22),
         graphite,
+        rotorAssembly,
       );
-      hub.position.set(boom.position.x, 0.17, z);
+      hub.position.set(0, 0.17, 0);
       const rotor = ellipsoid(
-        boom.position.x,
+        0,
         0.26,
-        z,
+        0,
         0.48,
         0.018,
         0.045,
         graphite,
+        rotorAssembly,
       );
       rotor.rotation.y = (z > 0 ? 0.52 : -0.72) * side;
+      parts.push({
+        object: rotorAssembly,
+        offset: new THREE.Vector3(side * 0.2, 0.82, z > 0 ? 0.18 : -0.18),
+      });
     }
     const strut = ellipsoid(
       side * 0.28,
@@ -124,9 +169,49 @@ function airframe() {
     strut.rotation.z = side * 0.22;
     ellipsoid(side * 0.3, -0.64, 0.61, 0.066, 0.04, 0.24, graphite);
   }
-  const aft = ellipsoid(0, 0.01, -2.3, 0.052, 0.67, 0.03, graphite);
-  aft.rotation.z = 0.47;
-  return group;
+  const aft = new THREE.Group();
+  group.add(aft);
+  parts.push({ object: aft, offset: new THREE.Vector3(0, 0.6, -0.5) });
+  const pusher = ellipsoid(0, 0.01, -2.3, 0.052, 0.67, 0.03, graphite, aft);
+  pusher.rotation.z = 0.47;
+
+  const tankMaterial = new THREE.MeshStandardMaterial({
+    color: 0x78966f,
+    metalness: 0.54,
+    roughness: 0.32,
+  });
+  const systemMaterial = new THREE.MeshStandardMaterial({
+    color: 0xb7cda1,
+    metalness: 0.2,
+    roughness: 0.38,
+  });
+  const fuelTank = new THREE.Group();
+  group.add(fuelTank);
+  shape(
+    new THREE.CylinderGeometry(0.16, 0.16, 0.88, 32),
+    tankMaterial,
+    fuelTank,
+  ).rotation.x = Math.PI / 2;
+  ellipsoid(0, 0, -0.44, 0.16, 0.16, 0.08, tankMaterial, fuelTank);
+  ellipsoid(0, 0, 0.44, 0.16, 0.16, 0.08, tankMaterial, fuelTank);
+  fuelTank.position.set(0, -0.1, -0.48);
+  parts.push({ object: fuelTank, offset: new THREE.Vector3(0, -1.05, -0.52) });
+  const fuelCell = new THREE.Group();
+  group.add(fuelCell);
+  shape(new THREE.BoxGeometry(0.42, 0.24, 0.54), systemMaterial, fuelCell);
+  fuelCell.position.set(0, -0.13, 0.25);
+  parts.push({ object: fuelCell, offset: new THREE.Vector3(0, 1.05, 0.18) });
+  const battery = new THREE.Group();
+  group.add(battery);
+  shape(new THREE.BoxGeometry(0.32, 0.2, 0.34), graphite, battery);
+  battery.position.set(0, -0.13, 0.84);
+  parts.push({ object: battery, offset: new THREE.Vector3(0, -0.95, 0.75) });
+
+  for (const part of parts) {
+    part.origin = part.object.position.clone();
+    part.object.userData.explodeOffset = part.offset;
+  }
+  return { group, parts };
 }
 export function createViewer(host, onMove) {
   const renderer = new THREE.WebGLRenderer({
@@ -144,7 +229,7 @@ export function createViewer(host, onMove) {
   const edge = new THREE.DirectionalLight(0xe5f6ff, 2.2);
   edge.position.set(3, 2, -5);
   scene.add(edge);
-  const model = airframe();
+  const { group: model, parts } = airframe();
   scene.add(model);
   const lineScene = new THREE.Scene();
   lineScene.background = new THREE.Color(0x193c2d);
@@ -170,14 +255,15 @@ export function createViewer(host, onMove) {
   let azimuth = 0.62,
     elevation = 0.49,
     start = null,
-    outline = 0;
+    outline = 0,
+    explodeAmount = 0;
   function render() {
     const w = host.clientWidth,
       h = host.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    const distance = Math.max(9.5, 16 / camera.aspect);
+    const distance = Math.max(9.5, 16 / camera.aspect) + explodeAmount * 4.5;
     camera.position.set(
       Math.sin(azimuth) * Math.cos(elevation) * distance,
       Math.sin(elevation) * distance,
@@ -242,6 +328,18 @@ export function createViewer(host, onMove) {
   return {
     render,
     rotate,
+    setExplode(amount) {
+      explodeAmount = amount;
+      for (const part of parts) {
+        part.object.position
+          .copy(part.origin)
+          .addScaledVector(part.offset, amount);
+      }
+      render();
+    },
+    get explodeAmount() {
+      return explodeAmount;
+    },
     setOutline(value) {
       outline = value;
       render();
