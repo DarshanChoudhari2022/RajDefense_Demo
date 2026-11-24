@@ -1270,24 +1270,6 @@ textarea {
 .scene-link {
   margin-top: 29px;
 }
-.scene-foot {
-  position: absolute;
-  bottom: 20px;
-  right: var(--gutter);
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #fff;
-  text-shadow: 0 1px 6px #07160d;
-}
-.scene-toggle {
-  width: 36px;
-  height: 36px;
-  background: #0a1d1380;
-}
 .coast h2 {
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(78px, 10.9vw, 184px);
@@ -1460,9 +1442,6 @@ textarea {
   }
   .coast h2 {
     font-size: clamp(71px, 17vw, 107px);
-  }
-  .scene-foot {
-    bottom: 16px;
   }
   .family-rows {
     gap: 12px;
