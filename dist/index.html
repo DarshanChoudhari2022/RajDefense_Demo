@@ -36,17 +36,18 @@
         href="#home"
         aria-label="Raj Defence and Aerospace home"
         ><img
-          src="assets/raj-logo.webp"
+          src="assets/raj-logo-light.webp"
           alt="Raj Defence & Aerospace"
           width="800"
           height="225"
       /></a>
       <nav id="site-nav" aria-label="Main navigation">
         <a href="#systems">Systems</a><a href="#hydrogen">Hydrogen</a
-        ><a href="#company">Company</a>
+        ><a href="#maritime">Maritime</a><a href="#company">Company</a>
       </nav>
       <a class="pill mast-cta" href="#contact"
-        >Request a briefing<i class="icon northeast"></i
+        ><span class="wide-cta">Request a briefing</span
+        ><span class="compact-cta">Briefing</span><i class="icon northeast"></i
       ></a>
       <button
         class="menu circle"
@@ -78,18 +79,25 @@
         ></video>
         <div class="hero-scrim"></div>
         <div class="hero-content">
+          <p class="scene-label">RAJAS RJS-H1</p>
           <h1 id="hero-heading">
             Hydrogen-powered<br />unmanned systems.<br /><em
               >Built in India.</em
             >
           </h1>
-          <button class="film-open" id="watch">
-            <span class="play-ring"><i class="icon play"></i></span>Watch film
-          </button>
+          <div class="hero-links">
+            <a class="hero-link" href="#systems"
+              >Explore aircraft <i class="icon down"></i
+            ></a>
+            <button class="film-open" id="watch">
+              <span class="play-ring"><i class="icon play"></i></span>Watch film
+            </button>
+          </div>
         </div>
         <div class="hero-rail">
           <span class="hero-id"
-            >RAJAS RJS-H1 <span>/</span> <span>Hydrogen hybrid VTOL</span></span
+            >Flight concept <span>/</span>
+            <span>Western Ghats, India</span></span
           ><span class="film-track" aria-hidden="true"><b></b></span
           ><button
             class="transport"
@@ -105,15 +113,58 @@
           ></a>
         </div>
       </section>
-      <section id="systems" class="gallery section">
+      <section
+        id="systems"
+        class="cinema hangar"
+        aria-labelledby="systems-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/hangar-reveal.webp"
+          alt="Illustrative front three-quarter view of the RJS-H1 inside a green hangar."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/hangar-reveal.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Unmanned aircraft</p>
+          <h2 id="systems-title">RAJAS<br />RJS-H1</h2>
+          <p class="scene-deck">
+            A hydrogen-powered aircraft designed in Pune for vertical take-off
+            and fixed-wing cruise.
+          </p>
+          <a class="scene-link" href="#aircraft"
+            >Explore the platform <i class="icon down"></i
+          ></a>
+        </div>
+        <div class="scene-foot">
+          <span>Concept film</span
+          ><button
+            type="button"
+            class="scene-toggle circle"
+            aria-label="Play systems motion"
+          >
+            <i class="icon play"></i>
+          </button>
+        </div>
+      </section>
+      <section id="aircraft" class="gallery section">
         <div class="section-cap">
-          <span>Unmanned systems</span><span>RAJAS platform family</span>
+          <span>Aircraft gallery</span><span>RAJAS RJS-H1</span>
         </div>
         <div class="gallery-grid">
           <div class="product-intro">
             <p class="kicker">Hydrogen hybrid VTOL</p>
-            <h2>RAJAS<br /><em>RJS-H1</em></h2>
-            <p class="deck">Five hours in the air.<br />No runway needed.</p>
+            <h2>Explore the airframe.</h2>
             <p>
               Designed in Pune, the RJS-H1 takes off vertically and settles into
               fixed-wing cruise on hydrogen fuel-cell power.
@@ -186,26 +237,69 @@
             <dd>Pune, India</dd>
           </div>
         </dl>
-        <div class="family">
+        <div class="family" id="programmes">
           <h3>Platform family</h3>
           <div class="family-rows">
             <details>
-              <summary>Hydrogen ISR drone</summary>
+              <summary>
+                <img
+                  loading="lazy"
+                  src="assets/hero.webp"
+                  alt="An aircraft flying over green hills"
+                  width="640"
+                  height="400"
+                />
+                <span class="card-face"
+                  ><strong>Hydrogen ISR drone</strong
+                  ><span class="card-caption"
+                    >Observation from the air</span
+                  ></span
+                >
+              </summary>
               <p>
                 A hydrogen-powered observation platform for extended day and
                 night coverage.
               </p>
             </details>
             <details>
-              <summary>RAJAS Heavy-Lift <small>In development</small></summary>
+              <summary>
+                <img
+                  loading="lazy"
+                  src="assets/heavy-lift.webp"
+                  alt="Heavy-lift concept over a mountain range"
+                  width="640"
+                  height="400"
+                />
+                <span class="card-face"
+                  ><strong
+                    >RAJAS Heavy-Lift <small>In development</small></strong
+                  ><span class="card-caption"
+                    >Cargo and medical supplies</span
+                  ></span
+                >
+              </summary>
               <p>
                 A development programme for cargo and medical supply transport.
                 The 100 kg payload and five-hour endurance figures are design
                 targets.
               </p>
             </details>
-            <details>
-              <summary>Maritime &amp; underwater systems</summary>
+            <details id="maritime-card">
+              <summary>
+                <img
+                  loading="lazy"
+                  src="assets/coastal-survey.webp"
+                  alt="Survey vessel off a forested coast"
+                  width="640"
+                  height="400"
+                />
+                <span class="card-face"
+                  ><strong>Maritime &amp; underwater systems</strong
+                  ><span class="card-caption"
+                    >Coastal and seabed survey</span
+                  ></span
+                >
+              </summary>
               <p>
                 Raj’s maritime portfolio covers deck-launched aircraft and
                 underwater vehicles for seabed survey and infrastructure
@@ -213,7 +307,21 @@
               </p>
             </details>
             <details>
-              <summary>Other defence programmes</summary>
+              <summary>
+                <img
+                  loading="lazy"
+                  src="assets/workshop.webp"
+                  alt="Engineering workshop concept"
+                  width="640"
+                  height="400"
+                />
+                <span class="card-face"
+                  ><strong>Other defence programmes</strong
+                  ><span class="card-caption"
+                    >Research and development</span
+                  ></span
+                >
+              </summary>
               <p>
                 The company portfolio also includes a hydrogen loitering
                 munition programme and an interceptor drone programme under
@@ -223,7 +331,51 @@
           </div>
         </div>
       </section>
-      <section id="hydrogen" class="technology section">
+      <section
+        id="hydrogen"
+        class="cinema lift"
+        aria-labelledby="hydrogen-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/lift-detail.webp"
+          alt="Concept close-up of a carbon-fibre lift propeller and motor hub."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/lift-detail.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Propulsion</p>
+          <h2 id="hydrogen-title">Electric lift.<br />Hydrogen cruise.</h2>
+          <p class="scene-deck">
+            Battery power lifts the RJS-H1 vertically. Once the wing carries its
+            weight, the hydrogen fuel cell supplies power for cruise.
+          </p>
+          <a class="scene-link" href="#propulsion"
+            >Inside the platform <i class="icon down"></i
+          ></a>
+        </div>
+        <div class="scene-foot">
+          <span>Concept film</span
+          ><button
+            type="button"
+            class="scene-toggle circle"
+            aria-label="Play hydrogen motion"
+          >
+            <i class="icon play"></i>
+          </button>
+        </div>
+      </section>
+      <section id="propulsion" class="technology section">
         <div class="section-cap">
           <span>Technology</span><span>Hydrogen propulsion</span>
         </div>
@@ -268,6 +420,50 @@
               </div>
             </article>
           </div>
+        </div>
+      </section>
+      <section
+        id="maritime"
+        class="cinema coast"
+        aria-labelledby="maritime-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/coastal-survey.webp"
+          alt="Illustrative coastal survey scene with a vessel tracing a wake across deep green water."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/coastal-survey.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Maritime systems</p>
+          <h2 id="maritime-title">Above &amp;<br />below water.</h2>
+          <p class="scene-deck">
+            Deck-launched aircraft and underwater survey vehicles extend Raj’s
+            engineering work to the coast and seabed.
+          </p>
+          <a class="scene-link" href="#contact"
+            >Discuss maritime systems <i class="icon down"></i
+          ></a>
+        </div>
+        <div class="scene-foot">
+          <span>Concept film</span
+          ><button
+            type="button"
+            class="scene-toggle circle"
+            aria-label="Play maritime motion"
+          >
+            <i class="icon play"></i>
+          </button>
         </div>
       </section>
       <section id="company" class="company section">
@@ -350,7 +546,9 @@
     </footer>
     <dialog id="film-dialog" aria-labelledby="film-title">
       <div class="dialog-head">
-        <h2 id="film-title">RAJAS RJS-H1 <span>Aircraft film</span></h2>
+        <h2 id="film-title">
+          Raj Defence &amp; Aerospace <span>Concept film</span>
+        </h2>
         <button class="circle close-dialog" aria-label="Close film">
           <i class="icon close"></i>
         </button>
@@ -360,9 +558,9 @@
         controls
         playsinline
         preload="none"
-        aria-label="Silent RJS-H1 gallery film"
-        poster="assets/view-2.webp"
-        data-src="assets/rajas-film.mp4"
+        aria-label="Silent concept film of the aircraft, propulsion and maritime programmes"
+        poster="assets/hero.webp"
+        data-src="assets/raj-overview.mp4"
       ></video>
     </dialog>
     <dialog id="brief-dialog" aria-labelledby="brief-title">

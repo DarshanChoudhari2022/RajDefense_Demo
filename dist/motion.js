@@ -23,65 +23,85 @@ document.addEventListener("keydown", (e) => {
 });
 matchMedia("(min-width:641px)").addEventListener("change", closeMenu);
 
-const background = $(".hero-video"),
-  hero = $(".hero"),
-  transport = $("#motion"),
-  track = $(".film-track b");
+const mast = $(".mast");
+function updateMast() {
+  mast.classList.toggle("scrolled", window.scrollY > 32);
+}
+updateMast();
+window.addEventListener("scroll", updateMast, { passive: true });
+
 const reduced = matchMedia("(prefers-reduced-motion:reduce)");
-let allowMotion = !reduced.matches && !navigator.connection?.saveData,
-  heroVisible = true,
-  frameRequest = 0;
-function progress() {
-  track.style.transform =
-    "scaleX(" +
-    (background.duration ? background.currentTime / background.duration : 0) +
-    ")";
-  if (!background.paused) frameRequest = requestAnimationFrame(progress);
-}
-function syncTransport() {
-  const playing = !background.paused;
-  transport.setAttribute(
-    "aria-label",
-    playing ? "Pause background motion" : "Play background motion",
-  );
-  transport.firstElementChild.className =
-    "icon " + (playing ? "pause" : "play");
-  cancelAnimationFrame(frameRequest);
-  progress();
-}
-function updateMotion() {
-  if (
-    allowMotion &&
-    heroVisible &&
-    !document.hidden &&
-    !document.querySelector("dialog[open]")
-  ) {
-    if (!background.getAttribute("src"))
-      background.src = background.dataset.src;
-    background.play().catch(syncTransport);
-  } else background.pause();
-}
-background.addEventListener("playing", () => {
-  background.classList.add("ready");
-  syncTransport();
-});
-background.addEventListener("pause", syncTransport);
-transport.addEventListener("click", () => {
-  allowMotion = background.paused;
-  updateMotion();
-});
-reduced.addEventListener("change", () => {
-  allowMotion = !reduced.matches;
-  updateMotion();
-});
-document.addEventListener("visibilitychange", updateMotion);
-new IntersectionObserver(
-  (entries) => {
-    heroVisible = entries[0].isIntersecting;
-    updateMotion();
+const motionScenes = Array.from(
+  document.querySelectorAll(".hero, .cinema"),
+  (section) => {
+    const video = section.querySelector("video");
+    const button = section.querySelector("#motion, .scene-toggle");
+    const track = section.querySelector(".film-track b");
+    const subject = section.classList.contains("hero")
+      ? "background"
+      : section.querySelector(".scene-label").textContent;
+    let visible = false;
+    let enabled = !reduced.matches && !navigator.connection?.saveData;
+
+    function syncButton() {
+      button.setAttribute(
+        "aria-label",
+        (video.paused ? "Play " : "Pause ") + subject + " motion",
+      );
+      button.firstElementChild.className =
+        "icon " + (video.paused ? "play" : "pause");
+    }
+    function update() {
+      if (
+        visible &&
+        enabled &&
+        !document.hidden &&
+        !document.querySelector("dialog[open]")
+      ) {
+        if (!video.hasAttribute("src")) video.src = video.dataset.src;
+        video.play().catch(syncButton);
+      } else {
+        video.pause();
+      }
+    }
+    button.addEventListener("click", () => {
+      enabled = video.paused;
+      update();
+    });
+    reduced.addEventListener("change", () => {
+      enabled = !reduced.matches && !navigator.connection?.saveData;
+      update();
+    });
+    video.addEventListener("playing", () => {
+      video.classList.add("ready");
+      syncButton();
+    });
+    video.addEventListener("pause", syncButton);
+    video.addEventListener("error", () => {
+      video.classList.remove("ready");
+      button.hidden = true;
+    });
+    if (track)
+      video.addEventListener("timeupdate", () => {
+        track.style.transform =
+          "scaleX(" +
+          (video.duration ? video.currentTime / video.duration : 0) +
+          ")";
+      });
+    new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        update();
+      },
+      { threshold: 0.18 },
+    ).observe(section);
+    return update;
   },
-  { threshold: 0.05 },
-).observe(hero);
+);
+function updateMotion() {
+  motionScenes.forEach((update) => update());
+}
+document.addEventListener("visibilitychange", updateMotion);
 
 const views = [
   { src: "assets/view-2.webp", label: "Front three-quarter" },
@@ -338,7 +358,12 @@ const sectionNav = new IntersectionObserver(
     for (const e of entries)
       if (e.isIntersecting) {
         for (const a of nav.querySelectorAll("a")) {
-          if (a.hash === "#" + e.target.id)
+          if (
+            a.hash ===
+            "#" +
+              ({ aircraft: "systems", propulsion: "hydrogen" }[e.target.id] ||
+                e.target.id)
+          )
             a.setAttribute("aria-current", "location");
           else a.removeAttribute("aria-current");
         }
