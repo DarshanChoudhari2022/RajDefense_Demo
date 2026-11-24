@@ -73,13 +73,35 @@ const faq = [
     'The RAJAS Heavy-Lift programme is in development. The <a href="/products">product page</a> marks its performance figures as design targets.',
   ],
 ];
+const aircraftStory = select("aircraft")
+  .replace('class="gallery-grid"', 'class="gallery-grid story-grid"')
+  .replace(
+    /<div class="product-intro">[\s\S]*?<\/div>/,
+    `<div class="story-copy">
+    <article><p class="kicker">RAJAS RJS-H1</p><h2>Explore the airframe.</h2><p>Follow the aircraft from vertical lift to fixed-wing cruise.</p></article>
+    <article><h3>Vertical lift</h3><p>Four lift rotors let the aircraft take off vertically without a runway.</p></article>
+    <article><h3>Fixed-wing cruise</h3><p>Once airborne, the wing carries the aircraft as the rear propeller provides forward thrust.</p><a class="text-link" href="/assets/Raj-RJS-H1-overview.pdf" download>Capability statement <i class="icon download"></i></a></article>
+  </div>`,
+  );
+function withInspector(html) {
+  return html
+    .replace(
+      '<figure class="viewer">',
+      '<div class="story-dock"><figure class="viewer">',
+    )
+    .replace(
+      "</figure>",
+      `<button type="button" id="inspect-aircraft" class="mode-button" aria-haspopup="dialog">Open aircraft viewer <i class="icon northeast"></i></button></figure></div>
+    <dialog class="inspect-dialog" aria-labelledby="inspect-title"><header><h2 id="inspect-title">RAJAS RJS-H1</h2><button type="button" class="mode-button" id="close-inspect">Close</button></header><div class="inspect-slot"></div><label class="zoom-control">Zoom <input id="inspect-zoom" type="range" min="80" max="155" value="100"><output>100%</output></label></dialog>`,
+    );
+}
 const pages = [
   [
     "/",
     "Hydrogen-powered unmanned systems",
     "Explore Raj Defence & Aerospace’s hydrogen-powered aircraft, maritime programmes and engineering services in Pune, India.",
     "Home",
-    main,
+    withInspector(main),
   ],
   [
     "/products",
@@ -89,7 +111,10 @@ const pages = [
     intro(
       "Products &amp; programmes",
       "Explore Raj’s unmanned aircraft and maritime portfolio, from the RJS-H1 to programmes in development.",
-    ) + select("products", "systems", "aircraft", "maritime"),
+    ) +
+      select("products", "systems") +
+      withInspector(aircraftStory) +
+      select("maritime"),
   ],
   [
     "/services",
@@ -263,7 +288,6 @@ ${path === "/" && verification ? `<meta name="google-site-verification" content=
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(fullTitle)}"><meta name="twitter:description" content="${escape(description)}"><meta name="twitter:image" content="${image}"><meta name="twitter:image:alt" content="Raj Defence and Aerospace aircraft concept over the Sahyadri hills">
 <link rel="icon" href="/emblem.svg"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/launch.css">
 ${path === "/" ? '<link rel="preload" as="image" href="/assets/sahyadri-flight.webp" fetchpriority="high">' : ""}
-${["/", "/products", "/services", "/technology", "/company"].includes(path) ? '<script defer src="/assets/gsap.min.js"></script><script defer src="/assets/ScrollTrigger.min.js"></script>' : ""}
 <script defer src="/launch.js"></script><script defer src="/motion.js"></script>`;
   const filename = path === "/" ? "index" : path.slice(1);
   await writeFile(

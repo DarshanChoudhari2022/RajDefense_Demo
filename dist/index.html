@@ -7,7 +7,6 @@
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Hydrogen-powered unmanned systems | Raj Defence &amp; Aerospace"><meta name="twitter:description" content="Explore Raj Defence &amp; Aerospace’s hydrogen-powered aircraft, maritime programmes and engineering services in Pune, India."><meta name="twitter:image" content="https://rajdefense.vercel.app/assets/share.jpg"><meta name="twitter:image:alt" content="Raj Defence and Aerospace aircraft concept over the Sahyadri hills">
 <link rel="icon" href="/emblem.svg"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/launch.css">
 <link rel="preload" as="image" href="/assets/sahyadri-flight.webp" fetchpriority="high">
-<script defer src="/assets/gsap.min.js"></script><script defer src="/assets/ScrollTrigger.min.js"></script>
 <script defer src="/launch.js"></script><script defer src="/motion.js"></script></head><body data-ga="">
 <a class="skip" href="#main">Skip to content</a><header class="mast">
       <a
@@ -61,7 +60,7 @@
               >Built in India.</em
             >
           </h1>
-          <a class="hero-link" href="#systems"
+          <a class="hero-link" href="/products#aircraft"
             >Explore aircraft <i class="icon down"></i
           ></a>
         </div>
@@ -213,7 +212,7 @@
               >Capability statement <i class="icon download"></i
             ></a>
           </div>
-          <figure class="viewer">
+          <div class="story-dock"><figure class="viewer">
             <div class="view-stage" id="view-stage">
               <img
                 id="aircraft-still"
@@ -257,7 +256,8 @@
               </div>
             </figcaption>
             <p id="model-hint" role="status"></p>
-          </figure>
+          <button type="button" id="inspect-aircraft" class="mode-button" aria-haspopup="dialog">Open aircraft viewer <i class="icon northeast"></i></button></figure></div>
+    <dialog class="inspect-dialog" aria-labelledby="inspect-title"><header><h2 id="inspect-title">RAJAS RJS-H1</h2><button type="button" class="mode-button" id="close-inspect">Close</button></header><div class="inspect-slot"></div><label class="zoom-control">Zoom <input id="inspect-zoom" type="range" min="80" max="155" value="100"><output>100%</output></label></dialog>
         </div>
         <dl class="spec-line">
           <div>
@@ -498,7 +498,7 @@
               about hydrogen-powered flight, contact our Pune office.
             </p>
             <a class="pill pale" href="/contact">
-              Request a briefing <i class="icon northeast"></i></a
+              Request a briefing <i class="icon northeast"></i></button
             ><a class="contact-email" href="mailto:sales@rajprocess.com"
               >sales@rajprocess.com</a
             >

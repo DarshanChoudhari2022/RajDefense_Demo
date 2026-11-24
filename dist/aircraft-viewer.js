@@ -209,6 +209,7 @@ function airframe() {
 
   for (const part of parts) {
     part.origin = part.object.position.clone();
+    part.orientation = part.object.rotation.clone();
     part.object.userData.explodeOffset = part.offset;
   }
   return { group, parts };
@@ -252,7 +253,8 @@ export function createViewer(host, onMove) {
     "Interactive RJS-H1 exterior concept. Drag horizontally or use arrow keys to rotate. Home resets the view.",
   );
   host.replaceChildren(canvas);
-  let azimuth = 0.62,
+  let zoom = 1,
+    azimuth = 0.62,
     elevation = 0.49,
     start = null,
     outline = 0,
@@ -261,9 +263,14 @@ export function createViewer(host, onMove) {
     const w = host.clientWidth,
       h = host.clientHeight;
     if (!w || !h) return;
-    renderer.setSize(w, h, false);
+    if (camera.userData.width !== w || camera.userData.height !== h) {
+      renderer.setSize(w, h, false);
+      camera.userData.width = w;
+      camera.userData.height = h;
+    }
     camera.aspect = w / h;
-    const distance = Math.max(9.5, 16 / camera.aspect) + explodeAmount * 4.5;
+    const distance =
+      (Math.max(9.5, 16 / camera.aspect) + explodeAmount * 4.5) / zoom;
     camera.position.set(
       Math.sin(azimuth) * Math.cos(elevation) * distance,
       Math.sin(elevation) * distance,
@@ -328,9 +335,22 @@ export function createViewer(host, onMove) {
   return {
     render,
     rotate,
+    setZoom(value) {
+      zoom = value;
+      render();
+    },
+    setStory(progress) {
+      azimuth = 0.62 + progress * 2.7;
+      elevation = 0.49 + 0.32 * Math.sin(progress * Math.PI);
+      render();
+    },
     setExplode(amount) {
       explodeAmount = amount;
-      for (const part of parts) {
+      for (const [index, part] of parts.entries()) {
+        const twist = Math.sin(amount * Math.PI) * 0.22;
+        part.object.rotation.copy(part.orientation);
+        part.object.rotation.y += twist * Math.cos(index * 2);
+        part.object.rotation.z += twist * Math.sin(index * 2);
         part.object.position
           .copy(part.origin)
           .addScaledVector(part.offset, amount);

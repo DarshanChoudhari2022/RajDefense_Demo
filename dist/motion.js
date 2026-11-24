@@ -36,8 +36,20 @@ const motionScenes = Array.from(
   (section) => {
     const video = section.querySelector("video");
     let visible = false;
+    let ready = document.readyState === "complete";
+    if (!ready)
+      window.addEventListener(
+        "load",
+        () => {
+          ready = true;
+          update();
+        },
+        { once: true },
+      );
     function update() {
       if (
+        ready &&
+        !document.querySelector("dialog[open]") &&
         visible &&
         !reduced.matches &&
         !navigator.connection?.saveData &&
@@ -99,7 +111,9 @@ if ($("#aircraft-still")) {
   $("#prev").addEventListener("click", () => stepView(-1));
   $("#next").addEventListener("click", () => stepView(1));
   function restoreStill() {
+    cancelAnimationFrame(explodeFrame);
     mode3D = false;
+    if (inspect.open) zoom.disabled = true;
     host.hidden = true;
     still.hidden = false;
     outlineControl.hidden = true;
@@ -143,7 +157,7 @@ if ($("#aircraft-still")) {
     const from = viewer?.explodeAmount ?? 0;
     const start = performance.now();
     function frame(now) {
-      const progress = Math.min(1, (now - start) / 720);
+      const progress = reduced.matches ? 1 : Math.min(1, (now - start) / 900);
       const eased = progress * progress * (3 - 2 * progress);
       const value = from + (target - from) * eased;
       viewer?.setExplode(value);
@@ -153,6 +167,7 @@ if ($("#aircraft-still")) {
     explodeFrame = requestAnimationFrame(frame);
   }
   explodeControl.querySelector("input").addEventListener("input", (event) => {
+    cancelAnimationFrame(explodeFrame);
     const amount = Number(event.target.value) / 100;
     viewer?.setExplode(amount);
     explodeButton.setAttribute("aria-pressed", String(amount > 0));
@@ -163,7 +178,7 @@ if ($("#aircraft-still")) {
   explodeButton.addEventListener("click", async () => {
     if (!mode3D) await enableViewer();
     if (!mode3D) return;
-    const expand = viewer.explodeAmount < 0.5;
+    const expand = explodeButton.getAttribute("aria-pressed") !== "true";
     explodeButton.setAttribute("aria-pressed", String(expand));
     explodeButton.querySelector("span").textContent = expand
       ? "Assemble aircraft"
@@ -190,6 +205,7 @@ if ($("#aircraft-still")) {
       });
       viewer.render();
       mode3D = true;
+      if (inspect.open) zoom.disabled = false;
       still.hidden = true;
       outlineControl.hidden = false;
       explodeControl.hidden = false;
@@ -214,16 +230,112 @@ if ($("#aircraft-still")) {
     }
     await enableViewer();
   });
+  const inspect = $(".inspect-dialog");
+  const dock = $(".story-dock");
+  const figure = dock.querySelector(".viewer");
+  const zoom = $("#inspect-zoom");
+  const story = $(".story-grid");
+  let storyVisible = false;
+  let drawFrame = 0;
+  let zoomFrame = 0;
+  let zoomValue = 1;
+
+  function drawStory() {
+    drawFrame = 0;
+    if (!storyVisible || inspect.open || reduced.matches || !mode3D) return;
+    const box = story.getBoundingClientRect();
+    const top = mast.offsetHeight;
+    const progress = Math.max(
+      0,
+      Math.min(
+        1,
+        (top - box.top) / Math.max(1, box.height - innerHeight + top),
+      ),
+    );
+    viewer.setStory(progress);
+  }
+  function scheduleStory() {
+    if (!drawFrame && storyVisible && !inspect.open)
+      drawFrame = requestAnimationFrame(drawStory);
+  }
+  async function activateStory() {
+    if (storyVisible && !reduced.matches && !navigator.connection?.saveData) {
+      await enableViewer();
+      scheduleStory();
+    }
+  }
+  if (story) {
+    new IntersectionObserver(([entry]) => {
+      storyVisible = entry.isIntersecting;
+      activateStory();
+    }).observe(story);
+    window.addEventListener("scroll", scheduleStory, { passive: true });
+    window.addEventListener("resize", scheduleStory);
+    reduced.addEventListener("change", activateStory);
+  }
+  const openInspect = $("#inspect-aircraft");
+  openInspect.addEventListener("click", async () => {
+    if (inspect.open) return;
+    inspect.querySelector(".inspect-slot").append(figure);
+    inspect.showModal();
+    document.body.classList.add("modal-open");
+    $("#close-inspect").focus();
+    updateMotion();
+    await enableViewer();
+    zoom.disabled = !mode3D;
+    viewer?.render();
+  });
+  zoom.addEventListener("input", () => {
+    const target = Number(zoom.value) / 100;
+    const initial = zoomValue;
+    const start = performance.now();
+    zoom.nextElementSibling.value = zoom.value + "%";
+    cancelAnimationFrame(zoomFrame);
+    function frame(now) {
+      const t = reduced.matches ? 1 : Math.min(1, (now - start) / 180);
+      zoomValue = initial + (target - initial) * (1 - (1 - t) ** 3);
+      viewer?.setZoom(zoomValue);
+      if (t < 1) zoomFrame = requestAnimationFrame(frame);
+    }
+    zoomFrame = requestAnimationFrame(frame);
+  });
+  $("#close-inspect").addEventListener("click", () => inspect.close());
+  inspect.addEventListener("close", () => {
+    cancelAnimationFrame(zoomFrame);
+    cancelAnimationFrame(explodeFrame);
+    dock.append(figure);
+    document.body.classList.remove("modal-open");
+    zoom.value = "100";
+    zoomValue = 1;
+    zoom.nextElementSibling.value = "100%";
+    viewer?.setZoom(1);
+    restoreStill();
+    hint.textContent = "";
+    activateStory();
+    openInspect.focus({ preventScroll: true });
+    updateMotion();
+  });
 }
 
-if (window.gsap && window.ScrollTrigger) {
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.append(script);
+  });
+}
+async function startReveals() {
+  await loadScript("/assets/gsap.min.js");
+  await loadScript("/assets/ScrollTrigger.min.js");
   gsap.registerPlugin(ScrollTrigger);
   gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
     for (const section of document.querySelectorAll(
-      ".catalogue, .cinema, .services, .technology, .company",
+      ".catalogue, .cinema, .services, .technology, .company, .story-copy, .faq-list",
     )) {
       const elements = section.querySelectorAll(
-        ".family-rows details, .scene-copy, .service-list a, .tech-chapters article, .company-grid figure",
+        ".family-rows details, .scene-copy, .service-list a, .tech-chapters article, .company-grid figure, .story-copy article, .faq-list details",
       );
       gsap.from(elements, {
         y: 22,
@@ -236,4 +348,22 @@ if (window.gsap && window.ScrollTrigger) {
       });
     }
   });
+}
+
+if (
+  document.querySelector(
+    ".catalogue,.cinema,.services,.technology,.company,.faq-list",
+  )
+) {
+  const start = () => {
+    if (reduced.matches) return;
+    reduced.removeEventListener("change", start);
+    startReveals().catch(() => {});
+  };
+  reduced.addEventListener("change", start);
+  window.addEventListener(
+    "load",
+    () => (window.requestIdleCallback || setTimeout)(start),
+    { once: true },
+  );
 }

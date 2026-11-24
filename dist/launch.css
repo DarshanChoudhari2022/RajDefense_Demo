@@ -118,3 +118,230 @@
     justify-content: flex-start;
   }
 }
+
+:root {
+  --paper: #f7f6f0;
+  --ink: #20241f;
+  --muted: #51594e;
+  --rule: #bec2b8;
+}
+.page-intro,
+.catalogue,
+.technology,
+.contact {
+  background-color: #191e1a;
+}
+.gallery,
+.company,
+.services {
+  background-color: #f1f0e9;
+}
+.story-dock {
+  min-width: 0;
+}
+.viewer {
+  margin: 0;
+  padding: clamp(12px, 1.7vw, 24px);
+  color: #233025;
+  border: 1px solid #b4b9ab;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fafaf5, #dddfd4);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -2px 1px #c0c6b7,
+    0 12px 30px #18211715;
+}
+.viewer .view-stage {
+  border: 1px solid #b5baad;
+  border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 40%, #fcfcf7, #d6dacd);
+  box-shadow:
+    inset 0 2px 6px #333e2a20,
+    0 1px 0 #fff;
+}
+.viewer figcaption {
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.pill,
+.viewer button,
+.inspect-dialog button {
+  box-shadow:
+    0 2px 3px #151d1726,
+    inset 0 1px 0 #ffffff35;
+  transition:
+    box-shadow 0.16s,
+    transform 0.16s,
+    background-color 0.16s;
+}
+.viewer button,
+.inspect-dialog button {
+  background-color: #f5f5ed;
+}
+.family-rows details {
+  box-shadow: 0 4px 14px #060a061c;
+  transition: box-shadow 0.2s;
+}
+@media (hover: hover) {
+  .family-rows details:hover {
+    box-shadow: 0 7px 20px #0004;
+  }
+  .viewer button:hover,
+  .pill:hover {
+    transform: translateY(-1px);
+  }
+}
+button:active,
+.pill:active,
+.scene-link:active,
+.hero-link:active,
+.family-rows summary:active {
+  transform: translateY(1px);
+}
+.viewer button:active,
+.pill:active {
+  box-shadow: inset 0 2px 4px #0003;
+}
+.launch-footer .wordmark img {
+  transform-origin: left center;
+  transition:
+    transform 0.25s,
+    filter 0.25s;
+}
+.launch-footer .wordmark:is(:hover, :focus-visible) img {
+  transform: translateY(-2px) scale(1.055);
+  filter: drop-shadow(0 4px 4px #28342133);
+}
+.story-grid {
+  align-items: start;
+}
+.story-grid .story-dock {
+  position: sticky;
+  top: calc(var(--header) + 18px);
+}
+.story-grid
+  .story-dock
+  :is(
+    figcaption,
+    .outline-control,
+    .explode-control,
+    .exploded-parts,
+    #model-hint
+  ) {
+  display: none;
+}
+.story-copy article {
+  min-height: 50svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.story-copy h3 {
+  font-size: clamp(32px, 3.2vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  font-weight: 530;
+}
+.story-copy article p:not(.kicker) {
+  max-width: 35ch;
+  margin-top: 16px;
+}
+.story-copy .kicker {
+  margin-bottom: 15px;
+}
+#inspect-aircraft {
+  margin: 14px 0 0 auto;
+}
+.inspect-dialog {
+  width: min(960px, 95vw);
+  max-height: 92svh;
+  overflow: auto;
+  border-radius: 16px;
+  background: #f3f2ea;
+}
+.inspect-dialog[open] {
+  animation: inspect-in 0.24s ease-out;
+}
+.inspect-dialog header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.inspect-dialog h2 {
+  font-weight: 540;
+  letter-spacing: -0.045em;
+}
+.inspect-dialog .view-stage {
+  height: clamp(160px, 40svh, 440px);
+}
+.inspect-dialog #inspect-aircraft {
+  display: none;
+}
+.zoom-control {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 14px 0 0;
+  font-size: 14px;
+}
+.zoom-control input[type="range"] {
+  flex: 1;
+  width: auto;
+  accent-color: #3e6142;
+}
+.zoom-control output {
+  min-width: 4ch;
+}
+@keyframes inspect-in {
+  from {
+    opacity: 0;
+    transform: scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (max-width: 640px) {
+  .story-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .story-grid .story-dock {
+    order: -1;
+    width: 100%;
+    top: var(--header);
+    z-index: 2;
+  }
+  .story-grid .view-stage {
+    height: clamp(124px, 24svh, 240px);
+  }
+  .story-copy article {
+    min-height: 46svh;
+    padding: 32px 0;
+  }
+  .story-copy article:first-child {
+    min-height: 36svh;
+  }
+  .inspect-dialog .viewer-actions {
+    flex-wrap: wrap;
+  }
+}
+@media (max-height: 520px) {
+  .story-grid .story-dock {
+    position: static;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inspect-dialog[open] {
+    animation: none;
+  }
+  .viewer button,
+  .pill,
+  .launch-footer .wordmark img {
+    transition: none;
+  }
+}
