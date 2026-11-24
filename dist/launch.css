@@ -1,0 +1,120 @@
+.mast:has(+ main > .page-intro) {
+  background: #10281d;
+}
+.page-intro {
+  margin-top: var(--header);
+  padding: clamp(55px, 8vw, 132px) var(--gutter);
+  background: #10281d;
+  color: #eef5e9;
+}
+.page-intro h1 {
+  max-width: 16ch;
+  font-size: clamp(44px, 6vw, 104px);
+}
+.page-intro p {
+  max-width: 56ch;
+  margin-top: 24px;
+  color: #d5e4ce;
+  font-size: clamp(17px, 2vw, 23px);
+}
+.page-body {
+  padding: clamp(36px, 6vw, 90px) var(--gutter);
+}
+.page-body > .text-link {
+  margin-right: 25px;
+}
+.page-body h2 {
+  font-size: clamp(24px, 3.4vw, 48px);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.page-body p,
+.page-body video {
+  margin-top: 16px;
+}
+.page-body p {
+  max-width: 67ch;
+}
+.page-body p a,
+#enquiry > p a,
+.cookie-settings p a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.page-body video {
+  width: min(100%, 1100px);
+  display: block;
+}
+.prose h2 + p {
+  margin-top: 12px;
+}
+.prose p + h2 {
+  margin-top: 42px;
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 1.2fr);
+  gap: clamp(30px, 7vw, 105px);
+}
+.contact-layout form {
+  max-width: 720px;
+}
+.contact-layout button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.faq-list details {
+  max-width: 900px;
+  border-top: 1px solid var(--rule);
+}
+.launch-footer {
+  align-items: flex-start;
+}
+.launch-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px 20px;
+  font-size: 14px;
+}
+.launch-footer a:hover,
+.launch-footer button:hover {
+  text-decoration: underline;
+}
+.cookie-settings {
+  position: fixed;
+  z-index: 20;
+  inset: auto max(16px, var(--gutter)) 16px auto;
+  width: min(calc(100% - 32px), 410px);
+  border: 1px solid var(--rule);
+  background: #f1f5ed;
+  box-shadow: 0 14px 50px #0004;
+  padding: 20px;
+  border-radius: 8px;
+}
+.cookie-settings h2 {
+  font-size: 20px;
+}
+.cookie-settings p {
+  margin: 8px 0 14px;
+  font-size: 15px;
+}
+.cookie-settings > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cookie-settings [hidden] {
+  display: none;
+}
+@media (max-width: 720px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .launch-footer {
+    flex-direction: column;
+  }
+  .launch-footer nav {
+    justify-content: flex-start;
+  }
+}

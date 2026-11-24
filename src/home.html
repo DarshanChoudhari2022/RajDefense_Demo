@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Raj Defence &amp; Aerospace | Hydrogen-powered unmanned systems
+    </title>
+    <meta
+      name="description"
+      content="Discover the RAJAS RJS-H1 hydrogen-powered aircraft and Raj’s engineering roots in Pune, India."
+    />
+    <meta name="theme-color" content="#193524" />
+    <link rel="icon" href="emblem.svg" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/sahyadri-flight.webp"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="assets/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="assets/gsap.min.js"></script>
+    <script defer src="assets/ScrollTrigger.min.js"></script>
+    <script defer src="motion.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="mast">
+      <a
+        class="wordmark"
+        href="#home"
+        aria-label="Raj Defence and Aerospace home"
+        ><img
+          src="assets/raj-logo-light.webp"
+          alt="Raj Defence & Aerospace"
+          width="800"
+          height="225"
+      /></a>
+      <nav id="site-nav" aria-label="Main navigation">
+        <a href="#products">Products</a>
+        <a href="#services">Services</a>
+        <a href="#hydrogen">Technology</a>
+        <a href="#company">Company</a>
+      </nav>
+      <a class="pill mast-cta" href="#contact"
+        ><span class="wide-cta">Request a briefing</span
+        ><span class="compact-cta">Briefing</span><i class="icon northeast"></i
+      ></a>
+      <button
+        class="menu circle"
+        aria-controls="site-nav"
+        aria-expanded="false"
+        aria-label="Open navigation"
+      >
+        <i class="icon menu-icon"></i>
+      </button>
+    </header>
+    <main id="main">
+      <section id="home" class="hero" aria-labelledby="hero-heading">
+        <img
+          class="hero-photo"
+          src="assets/sahyadri-flight.webp"
+          width="1672"
+          height="941"
+          fetchpriority="high"
+          alt="RJS-H1 aircraft concept above the green ridges of the Western Ghats"
+        />
+        <video
+          class="hero-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/sahyadri-flight.mp4"
+        ></video>
+        <div class="hero-scrim"></div>
+        <div class="hero-content">
+          <p class="scene-label">RAJAS RJS-H1</p>
+          <h1 id="hero-heading">
+            Hydrogen-powered<br />unmanned systems.<br /><em
+              >Built in India.</em
+            >
+          </h1>
+          <a class="hero-link" href="#systems"
+            >Explore aircraft <i class="icon down"></i
+          ></a>
+        </div>
+      </section>
+      <section
+        class="family catalogue"
+        id="products"
+        aria-labelledby="products-title"
+      >
+        <div id="programmes" class="catalogue-heading">
+          <h2 id="products-title">Products &amp; programmes</h2>
+        </div>
+        <div class="family-rows">
+          <details>
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/sahyadri-flight.webp"
+                alt="An aircraft flying over green hills"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>Hydrogen ISR drone</strong
+                ><span class="card-caption"
+                  >Observation from the air</span
+                ></span
+              >
+            </summary>
+            <p>
+              A hydrogen-powered observation platform for extended day and night
+              coverage.
+            </p>
+          </details>
+          <details>
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/heavy-lift.webp"
+                alt="Heavy-lift concept over a mountain range"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>RAJAS Heavy-Lift <small>In development</small></strong
+                ><span class="card-caption"
+                  >Cargo and medical supplies</span
+                ></span
+              >
+            </summary>
+            <p>
+              A development programme for cargo and medical supply transport.
+              The 100 kg payload and five-hour endurance figures are design
+              targets.
+            </p>
+          </details>
+          <details id="maritime-card">
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/konkan-survey.webp"
+                alt="Survey vessel off a forested coast"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>Maritime &amp; underwater systems</strong
+                ><span class="card-caption"
+                  >Coastal and seabed survey</span
+                ></span
+              >
+            </summary>
+            <p>
+              Raj’s maritime portfolio covers deck-launched aircraft and
+              underwater vehicles for seabed survey and infrastructure
+              inspection.
+            </p>
+          </details>
+          <details>
+            <summary>
+              <img
+                loading="lazy"
+                src="assets/workshop.webp"
+                alt="Engineering workshop concept"
+                width="640"
+                height="400"
+              />
+              <span class="card-face"
+                ><strong>Other defence programmes</strong
+                ><span class="card-caption"
+                  >Research and development</span
+                ></span
+              >
+            </summary>
+            <p>
+              The company portfolio also includes a hydrogen loitering munition
+              programme and an interceptor drone programme under development.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section
+        id="systems"
+        class="cinema hangar"
+        aria-labelledby="systems-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/pune-hangar.webp"
+          alt="Illustrative front three-quarter view of the RJS-H1 with engineers in a Pune workshop."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/pune-hangar.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Products / Hydrogen aircraft</p>
+          <h2 id="systems-title">RAJAS<br />RJS-H1</h2>
+          <p class="scene-deck">
+            A hydrogen-powered aircraft designed in Pune for vertical take-off
+            and fixed-wing cruise.
+          </p>
+          <a class="scene-link" href="#aircraft"
+            >Explore the platform <i class="icon down"></i
+          ></a>
+        </div>
+      </section>
+      <section id="aircraft" class="gallery section">
+        <div class="section-cap">
+          <span>Aircraft gallery</span><span>RAJAS RJS-H1</span>
+        </div>
+        <div class="gallery-grid">
+          <div class="product-intro">
+            <p class="kicker">Hydrogen hybrid VTOL</p>
+            <h2>Explore the airframe.</h2>
+            <p>
+              Designed in Pune, the RJS-H1 takes off vertically and settles into
+              fixed-wing cruise on hydrogen fuel-cell power.
+            </p>
+            <a class="text-link" href="assets/Raj-RJS-H1-overview.pdf" download
+              >Capability statement <i class="icon download"></i
+            ></a>
+          </div>
+          <figure class="viewer">
+            <div class="view-stage" id="view-stage">
+              <img
+                id="aircraft-still"
+                width="783"
+                height="482"
+                src="assets/view-2.webp"
+                loading="lazy"
+                alt="RAJAS RJS-H1, front three-quarter studio view"
+              />
+              <div id="canvas-host" hidden></div>
+            </div>
+            <figcaption>
+              <div class="view-buttons">
+                <button
+                  class="circle"
+                  id="prev"
+                  aria-label="Previous aircraft view"
+                >
+                  <i class="icon prev"></i></button
+                ><span id="view-label" aria-live="polite"
+                  >Front three-quarter</span
+                ><button
+                  class="circle"
+                  id="next"
+                  aria-label="Next aircraft view"
+                >
+                  <i class="icon next"></i>
+                </button>
+              </div>
+              <div class="viewer-actions">
+                <button class="mode-button" id="view-3d" aria-pressed="false">
+                  <i class="icon cube"></i><span>Explore in 3D</span>
+                </button>
+                <button
+                  class="mode-button"
+                  id="explode-toggle"
+                  aria-pressed="false"
+                >
+                  <i class="icon explode"></i><span>Exploded view</span>
+                </button>
+              </div>
+            </figcaption>
+            <p id="model-hint" role="status"></p>
+          </figure>
+        </div>
+        <dl class="spec-line">
+          <div>
+            <dt>Endurance</dt>
+            <dd>Up to 5 <small>hours</small></dd>
+          </div>
+          <div>
+            <dt>Payload</dt>
+            <dd>5 <small>kg</small></dd>
+          </div>
+          <div>
+            <dt>Take-off &amp; landing</dt>
+            <dd>Vertical</dd>
+          </div>
+          <div>
+            <dt>Origin</dt>
+            <dd>Pune, India</dd>
+          </div>
+        </dl>
+      </section>
+      <section
+        id="maritime"
+        class="cinema coast"
+        aria-labelledby="maritime-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/konkan-survey.webp"
+          alt="Illustrative coastal survey scene with a vessel tracing a wake along the Konkan coast."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/konkan-survey.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Products / Maritime systems</p>
+          <h2 id="maritime-title">Above &amp;<br />below water.</h2>
+          <p class="scene-deck">
+            Deck-launched aircraft and underwater survey vehicles extend Raj’s
+            engineering work to the coast and seabed.
+          </p>
+          <a class="scene-link" href="#contact"
+            >Discuss maritime systems <i class="icon down"></i
+          ></a>
+        </div>
+      </section>
+      <section
+        class="services section"
+        id="services"
+        aria-labelledby="services-title"
+      >
+        <div class="section-cap">
+          <span>Services</span><span>For evaluation teams</span>
+        </div>
+        <div class="services-grid">
+          <div>
+            <h2 id="services-title">
+              Engineering &amp;<br />evaluation support
+            </h2>
+            <p>
+              Talk through your aircraft requirements with Raj’s engineers or
+              arrange to see the design and assembly work in Pune.
+            </p>
+          </div>
+          <div class="service-list">
+            <a href="#contact" data-interest="Aircraft briefing"
+              ><span
+                ><strong>Aircraft briefing</strong
+                ><small
+                  >Discuss platform capabilities and your evaluation
+                  requirements.</small
+                ></span
+              ><i class="icon northeast"></i
+            ></a>
+            <a href="#contact" data-interest="Engineering visit"
+              ><span
+                ><strong>Visit the Pune facility</strong
+                ><small
+                  >Meet the team responsible for aircraft design and
+                  assembly.</small
+                ></span
+              ><i class="icon northeast"></i
+            ></a>
+            <a href="#contact" data-interest="Quality documentation"
+              ><span
+                ><strong>Quality documentation</strong
+                ><small
+                  >Request process records, certifications and approvals for
+                  review.</small
+                ></span
+              ><i class="icon northeast"></i
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section
+        id="hydrogen"
+        class="cinema lift"
+        aria-labelledby="hydrogen-title"
+      >
+        <img
+          class="scene-still"
+          src="assets/lift-detail.webp"
+          alt="Concept close-up of a carbon-fibre lift propeller and motor hub."
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <video
+          class="scene-video"
+          muted
+          playsinline
+          loop
+          preload="none"
+          aria-hidden="true"
+          data-src="assets/lift-detail.mp4"
+        ></video>
+        <div class="scene-copy">
+          <p class="scene-label">Technology / Propulsion</p>
+          <h2 id="hydrogen-title">Electric lift.<br />Hydrogen cruise.</h2>
+          <p class="scene-deck">
+            Battery power lifts the RJS-H1 vertically. Once the wing carries its
+            weight, the hydrogen fuel cell supplies power for cruise.
+          </p>
+          <a class="scene-link" href="#propulsion"
+            >Inside the platform <i class="icon down"></i
+          ></a>
+        </div>
+      </section>
+      <section id="propulsion" class="technology section">
+        <div class="section-cap">
+          <span>Technology</span><span>Hydrogen propulsion</span>
+        </div>
+        <div class="tech-grid">
+          <div class="tech-lead">
+            <p class="kicker">Inside the platform</p>
+            <h2>Why we fly<br />on <em>hydrogen.</em></h2>
+            <p>
+              Raj’s background in industrial gas engineering led to an aircraft
+              powered by a hydrogen fuel cell. Three elements shape its flight.
+            </p>
+          </div>
+          <div class="tech-chapters">
+            <article>
+              <span>01</span>
+              <div>
+                <h3>Fuel-cell cruise</h3>
+                <p>
+                  A fuel cell supplies steady electrical power for forward
+                  flight. Its outputs include water vapour and heat.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>02</span>
+              <div>
+                <h3>Electric lift</h3>
+                <p>
+                  A compact battery supports the short bursts of power needed
+                  for vertical take-off and landing.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>03</span>
+              <div>
+                <h3>Fixed-wing flight</h3>
+                <p>
+                  Once airborne, the wing carries the aircraft through cruise,
+                  extending its time in the air.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section id="company" class="company section">
+        <div class="section-cap">
+          <span>Company</span><span>Pune, Maharashtra</span>
+        </div>
+        <div class="company-grid">
+          <figure>
+            <img
+              src="chakan.webp"
+              alt="Aerial view of the Raj industrial facility at Chakan, Maharashtra"
+              width="1400"
+              height="933"
+              loading="lazy"
+            />
+            <figcaption>
+              Chakan facility <span>Maharashtra, India</span>
+            </figcaption>
+          </figure>
+          <div>
+            <p class="kicker">Our engineering roots</p>
+            <h2>Our roots<br />in <em>Pune.</em></h2>
+            <p>
+              Raj Defence and Aerospace grew out of Raj Process Equipments and
+              Systems in Pune. The group’s experience in industrial gas plants
+              now informs its work on hydrogen-powered aircraft.
+            </p>
+            <p>
+              Today, the Pune team brings that industrial experience to the
+              design and assembly of unmanned systems.
+            </p>
+            <a class="text-link" href="#services"
+              >Evaluation services <i class="icon northeast"></i
+            ></a>
+            <details class="quality">
+              <summary>Quality &amp; compliance</summary>
+              <p>
+                Raj makes its process records available for customer inspection.
+                Certifications and approvals are available on request.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="contact section" id="contact">
+        <div class="section-cap">
+          <span>Contact</span><span>Raj Defence &amp; Aerospace</span>
+        </div>
+        <div class="contact-grid">
+          <div>
+            <h2>Talk to<br /><em>our team.</em></h2>
+          </div>
+          <div>
+            <p>
+              For programme information, an engineering visit or a conversation
+              about hydrogen-powered flight, contact our Pune office.
+            </p>
+            <button class="pill pale" id="brief">
+              Request a briefing <i class="icon northeast"></i></button
+            ><a class="contact-email" href="mailto:sales@rajprocess.com"
+              >sales@rajprocess.com</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a
+        class="wordmark"
+        href="#home"
+        aria-label="Raj Defence and Aerospace home"
+        ><img
+          src="assets/raj-logo.webp"
+          alt="Raj Defence & Aerospace"
+          width="800"
+          height="225" /></a
+      ><a href="assets/raj-india-showcase.mp4"
+        >Company film <i class="icon play"></i></a
+      ><a href="Raj-brand-kit.zip" download
+        >Brand kit <i class="icon download"></i></a
+      ><a href="#home">Back to top <i class="icon up"></i></a>
+    </footer>
+    <dialog id="film-dialog" aria-labelledby="film-title">
+      <div class="dialog-head">
+        <h2 id="film-title">
+          Raj Defence &amp; Aerospace <span>Concept film</span>
+        </h2>
+        <button class="circle close-dialog" aria-label="Close film">
+          <i class="icon close"></i>
+        </button>
+      </div>
+      <video
+        id="film"
+        controls
+        playsinline
+        preload="none"
+        aria-label="Silent concept film of the aircraft, propulsion and maritime programmes"
+        poster="assets/sahyadri-flight.webp"
+        data-src="assets/raj-overview.mp4"
+      ></video>
+    </dialog>
+    <dialog id="brief-dialog" aria-labelledby="brief-title">
+      <div class="dialog-head">
+        <h2 id="brief-title">Request a briefing</h2>
+        <button class="circle close-dialog" aria-label="Close briefing form">
+          <i class="icon close"></i>
+        </button>
+      </div>
+      <form id="enquiry">
+        <p>Prepare an email for the Raj corporate team.</p>
+        <div class="form-grid">
+          <label
+            >Organisation<input
+              name="organisation"
+              autocomplete="organization"
+              required
+              maxlength="120" /></label
+          ><label
+            >Full name<input
+              name="name"
+              autocomplete="name"
+              required
+              maxlength="100"
+          /></label>
+          <label
+            >Designation<input
+              name="designation"
+              autocomplete="organization-title"
+              maxlength="100" /></label
+          ><label
+            >Official email<input
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              maxlength="200"
+          /></label>
+          <label
+            >Phone <small>(optional)</small
+            ><input
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              maxlength="40" /></label
+          ><label
+            >Area of interest<select name="interest">
+              <option>RAJAS RJS-H1</option>
+              <option>Hydrogen technology</option>
+              <option>Aircraft briefing</option>
+              <option>Engineering visit</option>
+              <option>Quality documentation</option>
+              <option>Company information</option>
+            </select></label
+          >
+        </div>
+        <label
+          >Your enquiry<textarea
+            name="message"
+            rows="3"
+            maxlength="1800"
+            required
+          ></textarea>
+        </label>
+        <label class="check"
+          ><input type="checkbox" name="authorised" required /> I confirm this
+          enquiry is on behalf of a government or authorised entity.</label
+        >
+        <button class="pill" type="submit">
+          Prepare email draft <i class="icon northeast"></i>
+        </button>
+        <div id="draft" hidden>
+          <p>
+            Your draft is ready. Review it in your email app and send it to
+            sales@rajprocess.com.
+          </p>
+          <a class="text-link" id="mail-draft"
+            >Open email app <i class="icon northeast"></i
+          ></a>
+          <button id="copy-draft" type="button">Copy message</button
+          ><span id="copy-status" role="status"></span>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
