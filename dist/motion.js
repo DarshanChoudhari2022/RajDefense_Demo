@@ -44,6 +44,7 @@ const motionScenes = Array.from(
     let enabled = !reduced.matches && !navigator.connection?.saveData;
 
     function syncButton() {
+      if (!button) return;
       button.setAttribute(
         "aria-label",
         (video.paused ? "Play " : "Pause ") + subject + " motion",
@@ -64,7 +65,7 @@ const motionScenes = Array.from(
         video.pause();
       }
     }
-    button.addEventListener("click", () => {
+    button?.addEventListener("click", () => {
       enabled = video.paused;
       update();
     });
@@ -79,7 +80,7 @@ const motionScenes = Array.from(
     video.addEventListener("pause", syncButton);
     video.addEventListener("error", () => {
       video.classList.remove("ready");
-      button.hidden = true;
+      if (button) button.hidden = true;
     });
     if (track)
       video.addEventListener("timeupdate", () => {
