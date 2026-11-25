@@ -5,12 +5,14 @@ const limit = 5;
 const localBuckets = new Map();
 const interests = new Set([
   "RAJAS RJS-H1",
-  "Maritime systems",
-  "Hydrogen technology",
-  "Aircraft briefing",
+  "RAJAS Heavy-Lift (in development)",
+  "Hydrogen loitering munition",
+  "Hydrogen ISR drone",
+  "Maritime & underwater drones",
+  "Interceptor drone (in development)",
   "Engineering visit",
   "Quality documentation",
-  "Company information",
+  "Something else",
 ]);
 const caps = {
   organisation: 120,
